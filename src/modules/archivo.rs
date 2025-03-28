@@ -5,6 +5,7 @@ pub fn leer_ruta() -> Vec<String> {
     args
 }
 
+///Leer contenido del archivo y convierte a string
 pub fn leer_archivo(args:Vec<String>) -> String {
     if args.len() < 2 {
         print!("no hay argumento suficiente")
@@ -18,10 +19,9 @@ pub fn leer_archivo(args:Vec<String>) -> String {
     }
 }
 
-
-
-// fn main() -> Result<(), Box<dyn Error>> {
-//     let message: String = fs::read_to_string("message.txt")?;
-//     println!("{}", message);
-//     Ok(())
-// }
+///Convierte el contenido a un vector de String
+pub fn tokenizar(input:String) ->Vec<String> {
+    input.split_whitespace()  
+        .map(|s| s.to_string())  
+        .collect()
+}

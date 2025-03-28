@@ -10,4 +10,7 @@ fn main() {
     let contenido = archivo::leer_archivo(ruta);
     println!("Contenido obtenido: {:?}", contenido);
 
+    let contenido_tokenizado = archivo::tokenizar(contenido);
+    println!("{:?}", contenido_tokenizado);
+
 }
