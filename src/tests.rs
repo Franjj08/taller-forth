@@ -30,8 +30,15 @@ fn test_read_file_no_exist() {
 }
 
 #[test]
-fn test_tokenize_content() {
+fn test_tokenize_is_not_empty() {
     let input = "1 2 +".to_string();
-    let resultado = file::tokenize(input);
-    assert_eq!(resultado,vec!["1", "2", "+"]);
+    let stack = file::tokenize(input);
+    assert!(!stack.is_empty());
 }
+
+fn test_tokenize_correct() {
+    let input = "1 2 +".to_string();
+    let stack = file::tokenize(input);
+    if let some(elem) stack.pop()
+}
+

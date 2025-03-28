@@ -1,16 +1,18 @@
 mod modules;
-use crate::modules::archivo;
+
+use crate::modules::file;
 #[cfg(test)]
 mod tests;
-
+use crate::modules::stack;
 fn main() {
-    let ruta :Vec<String> = archivo::leer_ruta();
+    let ruta :Vec<String> = file::leer_route();
     println!("Ruta obtenida: {:?}", ruta);
 
-    let contenido = archivo::leer_archivo(ruta);
+    let contenido = file::leer_file(ruta);
     println!("Contenido obtenido: {:?}", contenido);
 
-    let contenido_tokenizado = archivo::tokenizar(contenido);
-    println!("{:?}", contenido_tokenizado);
+    let stack = file::tokenize(contenido);
+    stack.print_elements();
+
 
 }
