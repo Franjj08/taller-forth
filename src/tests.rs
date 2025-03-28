@@ -1,9 +1,30 @@
 #[cfg(test)]
 use crate::modules::archivo;
 
+fn set_up_ruta(caso: &str) -> Vec<String>{
+    let ruta = match caso {
+        "valida" => "pruebas/prueba.fth",
+        "no_existe" => "prueba/no_existe.fth",
+        _ =>"Opcion no exite"
+    };
+    vec!["target\\debug\\Taller-Forth.exe".to_string(), ruta.to_string()]
+}
 #[test]
 fn test_leer_ruta_basica() {
-    // Test básico que verifica que recibe al menos el nombre del programa
     let args = archivo::leer_ruta();
     assert!(!args.is_empty());
+}
+
+#[test]
+fn test_leer_archivo_valido() {
+    let ruta = set_up_ruta("valida");
+    let contenido = archivo::leer_archivo(ruta);
+    assert_eq!(contenido,  "1 2 3 +".to_string());
+}
+
+#[test]
+fn test_leer_archivo_inexistente() {
+    let ruta = set_up_ruta("no_existe");
+    let contenido = archivo::leer_archivo(ruta);
+    assert_eq!(contenido,  "Error al leer el archivo".to_string());
 }
