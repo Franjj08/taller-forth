@@ -28,3 +28,10 @@ fn test_leer_archivo_inexistente() {
     let contenido = archivo::leer_archivo(ruta);
     assert_eq!(contenido,  "Error al leer el archivo".to_string());
 }
+
+#[test]
+fn test_tokenizar_string() {
+    let input = "1 2 +".to_string();
+    let resultado = archivo::tokenizar(input);
+    assert_eq!(resultado,vec!["1", "2", "+"]);
+}
