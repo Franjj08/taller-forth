@@ -1,37 +1,37 @@
 #[cfg(test)]
-use crate::modules::archivo;
+use crate::modules::file;
 
-fn set_up_ruta(caso: &str) -> Vec<String>{
-    let ruta = match caso {
-        "valida" => "pruebas/prueba.fth",
-        "no_existe" => "prueba/no_existe.fth",
-        _ =>"Opcion no exite"
+fn set_up_route(case: &str) -> Vec<String>{
+    let route = match case {
+        "valid" => "pruebas/prueba.fth",
+        "no_exist" => "prueba/no_exist.fth",
+        _ =>"Option no exist"
     };
-    vec!["target\\debug\\Taller-Forth.exe".to_string(), ruta.to_string()]
+    vec!["target\\debug\\Taller-Forth.exe".to_string(), route.to_string()]
 }
 #[test]
-fn test_leer_ruta_basica() {
-    let args = archivo::leer_ruta();
+fn test_read_route_basic() {
+    let args = file::leer_route();
     assert!(!args.is_empty());
 }
 
 #[test]
-fn test_leer_archivo_valido() {
-    let ruta = set_up_ruta("valida");
-    let contenido = archivo::leer_archivo(ruta);
-    assert_eq!(contenido,  "1 2 3 +".to_string());
+fn test_read_file_valid() {
+    let route = set_up_route("valid");
+    let content = file::leer_file(route);
+    assert_eq!(content,  "1 2 3 +".to_string());
 }
 
 #[test]
-fn test_leer_archivo_inexistente() {
-    let ruta = set_up_ruta("no_existe");
-    let contenido = archivo::leer_archivo(ruta);
-    assert_eq!(contenido,  "Error al leer el archivo".to_string());
+fn test_read_file_no_exist() {
+    let route = set_up_route("no_exist");
+    let content = file::leer_file(route);
+    assert_eq!(content,  "Error al leer el archivo".to_string());
 }
 
 #[test]
-fn test_tokenizar_string() {
+fn test_tokenize_content() {
     let input = "1 2 +".to_string();
-    let resultado = archivo::tokenizar(input);
+    let resultado = file::tokenize(input);
     assert_eq!(resultado,vec!["1", "2", "+"]);
 }
