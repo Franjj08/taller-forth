@@ -20,6 +20,7 @@ impl Stack {
         self.elements.push(StackElement::Integer(value));
     }
 
+
     // Añade un String a la pila
     pub fn push_str(&mut self, value: String) {
         self.elements.push(StackElement::Text(value));
@@ -38,18 +39,24 @@ impl Stack {
     /// Extrae un `i16` de la pila con manejo de errores.
     pub fn pop_int(&mut self) -> Result<i16, &'static str> {
         match self.elements.pop() {
-            Some(StackElemento::Integer(value)) => Ok(value),
-            // Some(StackElemento::Text(_)) => Err("invalid-word"),
-            None => Err("stack-underflow"),
+            Some(StackElement::Integer(value)) => Ok(value),
+            Some(StackElement::Text(_)) => Err("invalid-Integer"),
+            None =>{
+                println!("stack-underflow");
+                Err("stack-underflow")
+            },
         }
     }
 
     /// Extrae un `String` de la pila con manejo de errores.
     pub fn pop_str(&mut self) -> Result<String, &'static str> {
         match self.elements.pop() {
-            Some(StackElemento::Text(value)) => Ok(value),
-            // Some(StackElemento::Integer(_)) => Err("invalid-word"),
-            None => Err("stack-underflow"),
+            Some(StackElement::Text(value)) => Ok(value),
+            Some(StackElement::Integer(_)) => Err("invalid-Text"),
+            None =>{
+                println!("stack-underflow");
+                Err("stack-underflow")
+            },
         }
     }
 

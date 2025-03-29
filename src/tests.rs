@@ -1,5 +1,6 @@
 #[cfg(test)]
 use crate::modules::file;
+use crate::modules::stack;
 
 fn set_up_route(case: &str) -> Vec<String>{
     let route = match case {
@@ -8,6 +9,16 @@ fn set_up_route(case: &str) -> Vec<String>{
         _ =>"Option no exist"
     };
     vec!["target\\debug\\Taller-Forth.exe".to_string(), route.to_string()]
+}
+
+fn set_up_stack(case: &str) ->stack::Stack {
+    let input = match case{
+        "valid" =>"1 2 +".to_string(),
+        "no_exist" =>" ".to_string(),
+        _ =>"Option no exist".to_string()
+    };
+    let stack = file::tokenize(input);
+    stack
 }
 #[test]
 fn test_read_route_basic() {
@@ -31,16 +42,25 @@ fn test_read_file_no_exist() {
 
 #[test]
 fn test_tokenize_is_not_empty() {
-    let input = "1 2 +".to_string();
-    let stack = file::tokenize(input);
+    let stack = set_up_stack("valid");
     assert!(!stack.is_empty());
 }
+
 #[test]
 fn test_tokenize_correct() {
-    let input = "1 2 +".to_string();
-    let mut stack = file::tokenize(input);
-    let a = stack.pop_str();
-
-
+    let mut stack = set_up_stack("valid");
+    assert_eq!(stack.pop_str(), Ok("+".to_string()));
+    assert_eq!(stack.pop_int(), Ok(2));
+    assert_eq!(stack.pop_int(), Ok(1));
+    assert!(stack.is_empty());
 }
-
+#[test]
+fn test_stack_pop_int_error() {
+    let mut stack = set_up_stack("no_exist");
+    assert_eq!(stack.pop_str(), Err("stack-underflow"));
+}
+#[test]
+fn test_stack_pop_str_error() {
+    let mut stack = set_up_stack("no_exist");
+    assert_eq!(stack.pop_str(), Err("stack-underflow"));
+}
