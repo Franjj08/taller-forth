@@ -35,10 +35,12 @@ fn test_tokenize_is_not_empty() {
     let stack = file::tokenize(input);
     assert!(!stack.is_empty());
 }
-
+#[test]
 fn test_tokenize_correct() {
     let input = "1 2 +".to_string();
-    let stack = file::tokenize(input);
-    if let some(elem) stack.pop()
+    let mut stack = file::tokenize(input);
+    let a = stack.pop_str();
+
+
 }
 
